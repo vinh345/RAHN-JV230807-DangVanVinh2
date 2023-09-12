@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .container {
+        margin: auto;
+        justify-content: center;
+    }
+
+    .container1 {
+        margin-bottom: 50px;
+        width: 475px;
+        margin: auto;
+        width: 500px;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .the1 {
+        display: inline-block;
+        margin: 20px;
+        border-radius: 1px;
+        border: solid 1px rgb(235, 230, 230);
+    }
+
+    .the {
+        width: 50px;
+        height: 30px;
+        list-style: none;
+        object-fit: contain;
+        display: flex;
+        margin: 10px;
+        margin-bottom: 40px;
+        margin-right: 100px;
+    }
+
+    img {
+        width: 60px;
+        height: 31px;
+    }
+
+    .buttontype {
+        padding: 9px;
+        width: 95px;
+        color: rgb(241, 244, 247);
+        background-color: rgb(10, 122, 241);
+        border-radius: 100px;
+        text-align: center;
+    }
+
+    .row {
+        width: 100%;
+        /* background-color: aqua; */
+        margin-top: 10px;
+    }
+
+    .row .left {
+        width: 48%;
+        display: inline-block;
+    }
+
+    .row .right {
+        width: 48%;
+        display: inline-block;
+    }
+
+    .row .text {
+        width: 100%;
+        border-radius: 4px;
+    }
+
+    .text {
+        border-color: rgb(219, 205, 205);
+        padding: 15px;
+
+    }
+
+    .buttontype {
+        margin-top: 10px;
+    }
+
+    table,
+    th,
+    td {
+        border-collapse: collapse;
+        border: 1px solid black;
+    }
+
+    button {
+        width: 50px;
+        height: 30px;
+    }
+</style>
+
+
+<body>
+
+    <div class="container" style="width: 575px;margin: auto">
+
+        <h1> Select Card</h1>
+        <ul class="the">
+            <li>
+                <div class="the1">
+                    <img src="/img/z4686191427089_6bfc4335bcd1f0e86739f8b90c469db4.jpg" alt="">
+                </div>
+            </li>
+            <li>
+                <div class="the1">
+                    <img src="/img/z4686189914123_a7af7613828c372cb7f55602accb33c7.jpg" alt="">
+                </div>
+            </li>
+            <li>
+                <div class="the1">
+                    <img src="/img/z4686188625643_9346ad1f69ea967deb1590bc86544b23.jpg" alt="">
+                </div>
+            </li>
+            <li>
+                <div class="the1">
+                    <img src="/img/z4686192886014_a7e0a6064ee07c4920431a5463a5a976.jpg" alt="">
+                </div>
+            </li>
+            <li>
+                <div class="the1">
+                    <img src="/img/z4686196688103_27cb41c85fdf411deaa3072deaf5f911.jpg" alt="">
+                </div>
+            </li>
+        </ul>
+        <div>
+
+
+
+
+        </div>
+        <div class="row">
+            <label for="card">Card Number</label> <br />
+            <input class="text" type="number" id="card" name="card">
+        </div>
+
+        <div class="row">
+            <div class="left">
+                <label for="date">Expiry date</label><br />
+                <input class="text" type="date" id="date" name="date">
+            </div>
+
+            <div class="right">
+                <label for="CVC">CVC/CVV</label><br />
+                <input class="text" type="password" id="CVC" name="CVC">
+            </div>
+        </div>
+
+        <div class="buttontype" onclick="addJob()">Save </div>
+    </div>
+    <div class="container1">
+        <div>
+            <table style="width: 700px; height: 300px;margin-top: 100px;">
+
+                <thead>
+                    <tr>
+                        <th> Card img</th>
+                        <th> Card Number</th>
+                        <th> Expiry Date</th>
+                        <th> CVV</th>
+                        <th colspan="3"> Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="body"> </tbody>
+
+            </table>
+
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+
+        let jobs = [];
+        let flag = true;
+
+        //function thêm 
+        function addJob() {
+            let job = document.getElementById("card").value;
+            let datex = document.getElementById("date").value;
+            let cvv = document.getElementById("CVC").value;
+            let jobInfor = {
+                job: job,
+                date: datex,
+                cvc: cvv,
+            }
+            if (flag) {
+                jobs.push(jobInfor);
+                //sau khi thêm vào xong gọi hàm render ngay để hiển thị
+                renderJobs(jobs);
+                document.getElementById("card").value = "";
+            }
+            else {
+                jobInfor = {
+                    job: card,
+                    date: date,
+                    cvc: cvv,
+                }
+                for (let i = 0; i < jobs.length; i++) {
+                    if (jobs[i].cvc == cvv) {
+                        jobs.splice(i, 1, jobInfor);
+                        renderJobs(jobs);
+                        flag = true;
+                        document.getElementById("job").value = "";
+                    }
+                }
+            }
+        }
+        function uuid() {
+            return Math.floor(Math.random() * 9999999999) + new Date().getMilliseconds();
+        }
+
+
+
+
+        // function hiển thị danh sách 
+        function renderJobs(listJobs) {
+            let text = "";
+            for (let i = 0; i < listJobs.length; i++) {
+                text +=
+                    `
+        <tr> 
+        <td> ${i + 1} </td>
+        <td> ${listJobs[i].job}</td>           
+        <td> ${listJobs[i].date} </td>
+        <td> ${listJobs[i].cvc} </td>
+        <td > 
+        <button> view </button>
+        <button onclick="updateJob(${i})"> edit </button>
+        <button onclick="deleteJob(${i})"> delete </button>
+        </td>
+        </tr>
+        `
+            }
+            document.getElementById("body").innerHTML = text;
+        }
+
+        // function xoá
+        function deleteJob(id) {
+            console.log("1111");
+            for (let i = 0; i < jobs.length; i++) {
+                if (i == id) {
+                    jobs.splice(i, 1);
+                    renderJobs(jobs);
+                }
+            }
+        }
+        // function update
+        function updateJob(id) {
+            flag = false;
+            for (let i = 0; i < jobs.length; i++) {
+                if (i == id) {
+                    document.getElementById("job").value = jobs[i].job;
+                    idUpdate = jobs[i].id;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
